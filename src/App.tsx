@@ -4,11 +4,7 @@ import {OscButton} from "./OscButton.tsx";
 
 function App() {
     return (
-    <>
-    {
-        Object.values(NOTES).map(note=> (<OscButton note={note}/>))
-    }
-    </>
+    <>{ Object.entries(NOTES).map(([note, value])=> (<OscButton note={note} value={value}/>))}</>
   )
 }
 

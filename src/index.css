@@ -30,8 +30,9 @@ body {
 
 #root {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+
+  gap: 0.5rem;
 }
 
 h1 {
