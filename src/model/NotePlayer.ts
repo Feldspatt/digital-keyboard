@@ -1,75 +1,124 @@
-export class NotePlayer {
-    private audioContext: AudioContext;
+const audioContext = new AudioContext()
 
-    constructor() {
-        this.audioContext = new AudioContext();
+export function buildPianoNote(frequency: number): Note {
+    return {
+        frequency,
+        amplitude: 0.5,
+        duration: 0.5,
+        oscillatorType: 'sine',
+        envelope: {
+            attack: { duration: 0.01, gain: 1 },
+            decay: { duration: 0.1, gain: 0.7 },
+            sustain: { duration: 0.3, gain: 0.5 },
+            release: { duration: 0.1, gain: 0 }
+        },
+        harmonics: [
+            { frequency: frequency * 2, gain: 0.2 },
+            { frequency: frequency * 3, gain: 0.1 }
+        ],
+        filter: {
+            type: 'lowpass',
+            frequency: 2000
+        }
+    };
+}
+
+export function playNote(note: Note, destination?: AudioNode) {
+    // Create oscillator
+    const oscillator = audioContext.createOscillator();
+    oscillator.type = note.oscillatorType;
+    oscillator.frequency.setValueAtTime(note.frequency, audioContext.currentTime);
+
+    // Create gain node for main amplitude and envelope
+    const mainGain = audioContext.createGain();
+    mainGain.gain.setValueAtTime(note.amplitude, audioContext.currentTime);
+
+    // Apply envelope
+    const now = audioContext.currentTime;
+    mainGain.gain.setValueAtTime(0, now);
+    mainGain.gain.linearRampToValueAtTime(
+        note.envelope.attack.gain * note.amplitude,
+        now + note.envelope.attack.duration
+    );
+    mainGain.gain.linearRampToValueAtTime(
+        note.envelope.decay.gain * note.amplitude,
+        now + note.envelope.attack.duration + note.envelope.decay.duration
+    );
+    mainGain.gain.setValueAtTime(
+        note.envelope.sustain.gain * note.amplitude,
+        now + note.envelope.attack.duration + note.envelope.decay.duration
+    );
+    mainGain.gain.linearRampToValueAtTime(
+        0,
+        now + note.duration
+    );
+
+    // Handle harmonics
+    const harmonicOscillators = note.harmonics.map(harmonic => {
+        const harmonicOsc = audioContext.createOscillator();
+        const harmonicGain = audioContext.createGain();
+
+        harmonicOsc.type = oscillator.type;
+        harmonicOsc.frequency.setValueAtTime(harmonic.frequency, audioContext.currentTime);
+        harmonicGain.gain.setValueAtTime(harmonic.gain, audioContext.currentTime);
+
+        harmonicOsc.connect(harmonicGain);
+        harmonicGain.connect(mainGain);
+
+        return harmonicOsc;
+    });
+
+    // Apply filter if specified
+    let filterNode: BiquadFilterNode | undefined;
+    if (note.filter) {
+        filterNode = audioContext.createBiquadFilter();
+        filterNode.type = note.filter.type;
+        filterNode.frequency.setValueAtTime(note.filter.frequency, audioContext.currentTime);
+        if (note.filter.Q !== undefined) {
+            filterNode.Q.setValueAtTime(note.filter.Q, audioContext.currentTime);
+        }
+        if (note.filter.gain !== undefined) {
+            filterNode.gain.setValueAtTime(note.filter.gain, audioContext.currentTime);
+        }
     }
 
-    private applyEnvelope(
-        gainNode: GainNode,
-        amplitude: number,
-        enveloppe: Enveloppe,
-        startTime: number,
-    ): void {
-        const duration = enveloppe.attack + enveloppe.decay + enveloppe.sustain + enveloppe.sustain
-        const attackEnd = startTime + enveloppe.attack
-        const decayEnd = attackEnd + enveloppe.decay
-        const releaseStart = decayEnd + enveloppe.sustain
+    // Setup effects chain
+    let lastNode: AudioNode = mainGain;
 
-        gainNode.gain.setValueAtTime(0, startTime);
-        gainNode.gain.linearRampToValueAtTime(enveloppe.attack.gain, attackEnd);
-        gainNode.gain.linearRampToValueAtTime(amplitude * enveloppe.sustain, decayEnd);
-        gainNode.gain.setValueAtTime(amplitude * enveloppe.sustain, releaseStart);
-        gainNode.gain.linearRampToValueAtTime(0, startTime + duration);
+    // Add filter if exists
+    if (filterNode) {
+        mainGain.connect(filterNode);
+        lastNode = filterNode;
     }
 
-    generateNote(note: Note): { masterGain: GainNode; oscillators: OscillatorNode[] } {
-        const { amplitude, enveloppe, harmonics, oscillatorType = 'sine' } = note;
+    // Add delay effect
+    if (note.effects?.delay) {
+        const delayNode = audioContext.createDelay();
+        const delayGain = audioContext.createGain();
 
-        const currentTime = this.audioContext.currentTime;
-        const masterGain = this.audioContext.createGain();
-        const oscillators: OscillatorNode[] = [];
+        delayNode.delayTime.setValueAtTime(note.effects.delay.delayTime, audioContext.currentTime);
+        delayGain.gain.setValueAtTime(note.effects.delay.feedback, audioContext.currentTime);
 
-        for (const harmonic of harmonics) {
-            const oscillator = this.audioContext.createOscillator();
-            const gainNode = this.audioContext.createGain();
-
-            oscillator.type = oscillatorType;
-            oscillator.frequency.setValueAtTime(harmonic.frequency, currentTime);
-
-            const harmonicAmplitude = amplitude * harmonic.gain;
-            this.applyEnvelope(gainNode, harmonicAmplitude, enveloppe, currentTime);
-
-            oscillator.connect(gainNode);
-            gainNode.connect(masterGain);
-            oscillators.push(oscillator);
-        }
-
-        return { masterGain, oscillators };
+        lastNode.connect(delayNode);
+        delayNode.connect(delayGain);
+        delayGain.connect(delayNode);
+        lastNode = delayNode;
     }
 
-    playNoteGraph(masterGain: GainNode, oscillators: OscillatorNode[], startTime: number, duration: number): void {
-        masterGain.connect(this.audioContext.destination);
+    // Connect to destination
+    const finalDestination = destination || audioContext.destination;
+    lastNode.connect(finalDestination);
 
-
-        for (const oscillator of oscillators) {
-            oscillator.start(startTime);
-        }
-        for (const oscillator of oscillators) {
-            oscillator.stop(startTime + duration);
-        }
-
-        // Clean up after playback
-        for (const oscillator of oscillators) {
-            oscillator.onended = () => {
-                oscillator.disconnect();
-            };
-        }
-        masterGain.gain.setValueAtTime(0, startTime + duration);
+    // Start oscillators
+    oscillator.connect(mainGain);
+    oscillator.start(now);
+    for (const h of harmonicOscillators) {
+        h.start(now);
     }
 
-    playInstant(note: Note) {
-        const { masterGain, oscillators}  = this.generateNote(note)
-        this.playNoteGraph(masterGain, oscillators, this.audioContext.currentTime, 5000)
+    // Stop oscillators
+    oscillator.stop(now + note.duration);
+    for (const h of harmonicOscillators) {
+        h.stop(now + note.duration);
     }
 }

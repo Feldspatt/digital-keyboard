@@ -1,16 +1,11 @@
 import './App.css'
-import {CustomNoteInput} from "./components/CustomNoteInput.tsx";
-import {NotePlayer} from "./model/NotePlayer.ts";
-import {getBass, getPiano, getSaxo} from "./note-builder.ts";
-import {NOTES} from "./model/NOTES.ts";
+import {buildPianoNote, playNote} from "./model/NotePlayer.ts";
 
-const notePlayer = new NotePlayer()
+const note = buildPianoNote(440)
 
 function App() {
     return (<>
-        <CustomNoteInput note={getPiano(440)} notePlayer={notePlayer}/>
-        <CustomNoteInput note={getSaxo(440)} notePlayer={notePlayer}/>
-        <CustomNoteInput note={getBass(NOTES.C2)} notePlayer={notePlayer}/>
+        <button onClick={()=> playNote(note)}>0</button>
 
     </>)
 }
