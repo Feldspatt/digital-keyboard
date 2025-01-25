@@ -1,12 +1,13 @@
 import './App.css'
-import {buildPianoNote, playNote} from "./model/NotePlayer.ts";
+import {Instrument} from "./types/Instruments.enum.ts";
+import {InstrumentKeyboard} from "./components/InstrumentKeyboard.tsx";
 
-const note = buildPianoNote(440)
 
 function App() {
     return (<>
-        <button onClick={()=> playNote(note)}>0</button>
-
+        <InstrumentKeyboard instrument={Instrument.PIANO}/>
+        {/*<InstrumentKeyboard instrument={Instrument.FLUTE}/>*/}
+        {/*<InstrumentKeyboard instrument={Instrument.VIOLIN}/>*/}
     </>)
 }
 

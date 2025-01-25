@@ -1,5 +1,122 @@
 const audioContext = new AudioContext()
 
+export function buildViolinNote(frequency: number): Note {
+    return {
+        frequency,
+        amplitude: 0.5,
+        duration: 1,
+        oscillatorType: 'sawtooth',
+        harmonics: [
+            { frequency: frequency * 2, gain: 0.3 },
+            { frequency: frequency * 3, gain: 0.2 },
+            { frequency: frequency * 4, gain: 0.1 }
+        ],
+        filter: {
+            type: 'bandpass',
+            frequency: frequency * 2,
+            Q: 5  // High resonance for more texture
+        },
+        envelope: {
+            attack: { duration: 0.1, gain: 1 },    // Quick, intense start
+            decay: { duration: 0.2, gain: 0.8 },   // Slight taper
+            sustain: { duration: 0.5, gain: 0.6 }, // Slightly unstable sustain
+            release: { duration: 0.2, gain: 0 }    // Gradual fade-out
+        }
+    };
+}
+
+export function buildDrumHihatNote(frequency = 7250): Note{
+    return {
+        frequency: frequency || 1000,
+        amplitude: 0.3,
+        duration: 0.05,
+        oscillatorType: 'triangle',
+        harmonics: [
+            { frequency: 2000, gain: 0.2 },
+            { frequency: 3000, gain: 0.1 }
+        ],
+        envelope: {
+            attack: { duration: 0.01, gain: 1 },
+            decay: { duration: 0.04, gain: 0 },
+            sustain: { duration: 0, gain: 0 },
+            release: { duration: 0.01, gain: 0 }
+        },
+        filter: {
+            type: 'highpass',
+            frequency: 5000
+        }
+    }
+}
+
+export function buildFluteNote(frequency: number): Note {
+    return {
+        frequency,
+        amplitude: 0.4,
+        duration: 1,
+        oscillatorType: 'sine',
+        envelope: {
+            attack: { duration: 0.05, gain: 1 },
+            decay: { duration: 0.1, gain: 0.9 },
+            sustain: { duration: 0.7, gain: 0.7 },
+            release: { duration: 0.15, gain: 0 }
+        },
+        harmonics: [
+            { frequency: frequency * 2, gain: 0.1 },
+            { frequency: frequency * 3, gain: 0.05 }
+        ],
+        filter: {
+            type: 'lowpass',
+            frequency: frequency * 2
+        }
+    };
+}
+
+export function buildDrumKickNote(frequency = 235): Note {
+    return {
+        frequency: frequency || 80,
+        amplitude: 0.7,
+        duration: 0.2,
+        oscillatorType: 'sine',
+        harmonics: [
+            { frequency: 40, gain: 0.3 },
+            { frequency: 120, gain: 0.1 }
+        ],
+        envelope: {
+            attack: { duration: 0.01, gain: 1 },
+            decay: { duration: 0.15, gain: 0 },
+            sustain: { duration: 0, gain: 0 },
+            release: { duration: 0.05, gain: 0 }
+        },
+        filter: {
+            type: 'lowpass',
+            frequency: 200
+        }
+    }
+}
+
+export function buildDrumSnareNote(frequency= 220): Note {
+    return {
+            frequency: frequency || 200,
+            amplitude: 0.5,
+            duration: 0.1,
+            oscillatorType: 'sawtooth',
+            harmonics: [
+                { frequency: 100, gain: 0.2 },
+                { frequency: 300, gain: 0.1 }
+            ],
+            envelope: {
+                attack: { duration: 0.01, gain: 1 },
+                decay: { duration: 0.08, gain: 0 },
+                sustain: { duration: 0, gain: 0 },
+                release: { duration: 0.05, gain: 0 }
+            },
+            filter: {
+                type: 'bandpass',
+                frequency: 1000
+            }
+        }
+}
+
 export function buildPianoNote(frequency: number): Note {
     return {
         frequency,
