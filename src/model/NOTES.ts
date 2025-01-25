@@ -86,7 +86,7 @@ export const NOTES: { [note: string]: number } = {
 	A7: 3520.0,
 	'A#7': 3729.31,
 	B7: 3951.07,
-	C8: 4186.01 // Highest note on a standard piano
+	C8: 4186.01 // Highest note on a standard piano.ts
 };
 
 Object.freeze(NOTES);
