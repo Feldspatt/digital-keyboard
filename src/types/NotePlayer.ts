@@ -1,4 +1,13 @@
 const audioContext = new AudioContext()
+const compressor = audioContext.createDynamicsCompressor();
+compressor.connect(audioContext.destination);
+
+// Configure the compressor settings
+compressor.threshold.setValueAtTime(-24, audioContext.currentTime); // Threshold in dB
+compressor.knee.setValueAtTime(30, audioContext.currentTime);       // Smooth compression curve
+compressor.ratio.setValueAtTime(12, audioContext.currentTime);      // Compression ratio
+compressor.attack.setValueAtTime(0.003, audioContext.currentTime);  // Attack time in seconds
+compressor.release.setValueAtTime(0.25, audioContext.currentTime);
 
 export function buildViolinNote(frequency: number): Note {
     return {
@@ -141,6 +150,7 @@ export function buildPianoNote(frequency: number): Note {
 }
 
 export function playNote(note: Note, destination?: AudioNode) {
+
     // Create oscillator
     const oscillator = audioContext.createOscillator();
     oscillator.type = note.oscillatorType;
@@ -149,6 +159,7 @@ export function playNote(note: Note, destination?: AudioNode) {
     // Create gain node for main amplitude and envelope
     const mainGain = audioContext.createGain();
     mainGain.gain.setValueAtTime(note.amplitude, audioContext.currentTime);
+
 
     // Apply envelope
     const now = audioContext.currentTime;
@@ -223,7 +234,7 @@ export function playNote(note: Note, destination?: AudioNode) {
     }
 
     // Connect to destination
-    const finalDestination = destination || audioContext.destination;
+    const finalDestination = destination || compressor;
     lastNode.connect(finalDestination);
 
     // Start oscillators
