@@ -7,23 +7,21 @@ export function OscButton({note, value}: {note: string, value: number}) {
 
     const handleMouseEnter = () => {
         toggle()
-        console.log('Element hovered!')
     }
 
     const handleMouseLeave = () => {
         toggle()
-        console.log('Element no longer hovered!')
     }
 
     const toggle = ()=>{
         sound.toggle()
-        setActive(!!sound.currentOscillator);
+        setActive(!!sound.currentOscillator)
     }
 
-    return (<button
+    return <button
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         className={active ? 'active-class' : 'inactive-class'}
         onClick={()=> toggle()}>{note}
-    </button>)
+    </button>
 }
