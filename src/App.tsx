@@ -1,13 +1,13 @@
 import './App.css'
 import {Instrument} from "./types/Instruments.enum.ts";
-import {InstrumentKeyboard} from "./components/InstrumentKeyboard.tsx";
+import {Keyboard} from "./components/keyboard/keyboard.tsx";
 
 
 function App() {
     return (<>
-        <InstrumentKeyboard instrument={Instrument.PIANO}/>
-        {/*<InstrumentKeyboard instrument={Instrument.FLUTE}/>*/}
-        {/*<InstrumentKeyboard instrument={Instrument.VIOLIN}/>*/}
+        <Keyboard instrument={Instrument.PIANO}/>
+        <Keyboard instrument={Instrument.FLUTE}/>
+        <Keyboard instrument={Instrument.VIOLIN}/>
     </>)
 }
 

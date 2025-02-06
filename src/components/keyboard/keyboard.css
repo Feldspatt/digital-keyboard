@@ -1,0 +1,16 @@
+.keyboard{
+    width: 100vw;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 1rem;
+    column-gap: 0.1rem;
+    justify-content: center;
+}
+
+.white-note {
+    border-radius: 5px;
+    height: 100px;
+    width: 50px;
+    background-color: #f0f0f0;
+    color: #3e3e3e;
+}
