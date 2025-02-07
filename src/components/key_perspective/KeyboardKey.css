@@ -1,0 +1,90 @@
+.keyboard-key {
+    display: inline-block;
+    transform-style: preserve-3d;
+}
+
+.key-cube {
+    position: relative;
+    width: 100px; /* Width of the piano key */
+    height: 100px; /* Height of the piano key */
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    background-color: unset !important;
+}
+
+.key-cube:hover {
+    transform: rotateX(-5deg); /* Simulate pressing down */
+}
+
+.key-face {
+    position: absolute;
+    border: 1px solid #bfbfbf;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+.key-face.front {
+    width: 100px;
+    height: 50px;
+    transform: translateZ(150px); /* Front face */
+}
+
+.key-face.back {
+    width: 100px;
+    height: 50px;
+    transform: rotateY(180deg) translateZ(50px); /* Back face */
+}
+
+.key-face.left {
+    width: 200px;
+    height: 50px;
+    transform: rotateY(90deg) translateZ(-100px) translateX(50px); /* Left face */
+    transform-origin: top right;
+}
+
+.key-face.right {
+    width: 200px;
+    height: 50px;
+    transform: rotateY(-90deg) translateX(-50px); /* Right face */
+    transform-origin: top left;
+}
+
+.key-face.top {
+    width: 100px;
+    height: 200px; /* Shorter height for the top face */
+    transform: rotateX(90deg) translateY(-50px); /* Top face */
+    transform-origin: top;
+}
+
+.key-face.bottom {
+    width: 100px;
+    height: 200px; /* Shorter height for the bottom face */
+    transform: rotateX(-90deg) rotateY(180deg) translateZ(-50px) translateY(-150px); /* Bottom face */
+    transform-origin: top;
+}
+
+
+.black-key {
+    position: absolute;
+    z-index: 1;
+    border-radius: 3px;
+    transform: translateX(-50%) translateY(-100px);
+}
+
+.black-key * {
+    background-color: black;
+}
+
+.white-key {
+    flex-grow: 1;
+    height: 200px;
+    position: relative;
+}
+
+.white-key * {
+    background-color: white;
+}

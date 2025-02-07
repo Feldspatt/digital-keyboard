@@ -1,0 +1,33 @@
+/* Full screen wrapper */
+.wrapper {
+    height: 100vh; /* Full viewport height */
+    margin: 0;
+
+    background-color: #ececc6; /* Optional background color */
+    perspective: 700px;
+    perspective-origin: 50% -40%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.piano {
+    position: relative;
+    /*top: -100px;*/
+    /*transform: translateY(70vw) translateZ(-40vw);*/
+    gap: 0.2em;
+    transform-style: preserve-3d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.black-placeholder {
+    position: relative;
+    width: 0;
+    transform-style: preserve-3d;
+    transform: scaleX(50%) scaleZ(60%) translateY(-25px);
+}

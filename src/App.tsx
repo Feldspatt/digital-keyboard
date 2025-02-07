@@ -1,10 +1,11 @@
 import './App.css'
-import {PianoKeyboard} from "./components/keyboard/PianoKeyboard.tsx";
+import {Piano3d} from "./components/piano3d/piano3d.tsx";
 
 
 function App() {
     return (<>
-        <PianoKeyboard/>
+        <Piano3d/>
+        {/*<PianoKeyboard/>*/}
         {/*<Keyboard instrument={Instrument.PIANO}/>*/}
         {/*<Keyboard instrument={Instrument.FLUTE}/>*/}
         {/*<Keyboard instrument={Instrument.VIOLIN}/>*/}

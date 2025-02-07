@@ -1,19 +1,4 @@
 const pianoNotes = [
-    { name: 'A0', frequency: 27.5, color: 'white' },
-    { name: 'A#0', frequency: 29.14, color: 'black' },
-    { name: 'B0', frequency: 30.87, color: 'white' },
-    { name: 'C1', frequency: 32.7, color: 'white' },
-    { name: 'C#1', frequency: 34.65, color: 'black' },
-    { name: 'D1', frequency: 36.71, color: 'white' },
-    { name: 'D#1', frequency: 38.89, color: 'black' },
-    { name: 'E1', frequency: 41.2, color: 'white' },
-    { name: 'F1', frequency: 43.65, color: 'white' },
-    { name: 'F#1', frequency: 46.25, color: 'black' },
-    { name: 'G1', frequency: 49.0, color: 'white' },
-    { name: 'G#1', frequency: 51.91, color: 'black' },
-    { name: 'A1', frequency: 55.0, color: 'white' },
-    { name: 'A#1', frequency: 58.27, color: 'black' },
-    { name: 'B1', frequency: 61.74, color: 'white' },
     { name: 'C2', frequency: 65.41, color: 'white' },
     { name: 'C#2', frequency: 69.3, color: 'black' },
     { name: 'D2', frequency: 73.42, color: 'white' },
@@ -61,8 +46,20 @@ const pianoNotes = [
     { name: 'G#5', frequency: 830.61, color: 'black' },
     { name: 'A5', frequency: 880.0, color: 'white' },
     { name: 'A#5', frequency: 932.33, color: 'black' },
-    { name: 'B5', frequency: 987.77, color: 'white' }
-    // Continue up to C8 if needed
+    { name: 'B5', frequency: 987.77, color: 'white' },
+    { name: 'C6', frequency: 1046.5, color: 'white' },
+    { name: 'C#6', frequency: 1108.73, color: 'black' },
+    { name: 'D6', frequency: 1174.66, color: 'white' },
+    { name: 'D#6', frequency: 1244.51, color: 'black' },
+    { name: 'E6', frequency: 1318.51, color: 'white' },
+    { name: 'F6', frequency: 1396.91, color: 'white' },
+    { name: 'F#6', frequency: 1479.98, color: 'black' },
+    { name: 'G6', frequency: 1567.98, color: 'white' },
+    { name: 'G#6', frequency: 1661.22, color: 'black' },
+    { name: 'A6', frequency: 1760.0, color: 'white' },
+    { name: 'A#6', frequency: 1865.66, color: 'black' },
+    { name: 'B6', frequency: 1975.53, color: 'white' },
+    { name: 'C7', frequency: 2093.0, color: 'white' }
 ] as const;
 
 export default pianoNotes;
