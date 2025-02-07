@@ -1,0 +1,28 @@
+.piano {
+    display: flex;
+    height: 200px;
+}
+
+.white-key {
+    width: 50px;
+    flex-grow: 1;
+    height: 200px;
+    background: white;
+    border: 1px solid black;
+    position: relative;
+}
+
+.black-placeholder {
+    position: relative;
+    width: 0;
+}
+
+.black-key {
+    width: 20px;
+    height: 120px;
+    background: black;
+    position: absolute;
+    z-index: 1;
+    border-radius: 3px;
+    transform: translateX(-50%);
+}
