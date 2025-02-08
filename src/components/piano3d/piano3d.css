@@ -1,22 +1,5 @@
-/* Full screen wrapper */
-.wrapper {
-    height: 100vh; /* Full viewport height */
-    margin: 0;
-
-    background-color: #ececc6; /* Optional background color */
-    perspective: 700px;
-    perspective-origin: 50% -40%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
 .piano {
     position: relative;
-    /*top: -100px;*/
-    /*transform: translateY(70vw) translateZ(-40vw);*/
     gap: 0.2em;
     transform-style: preserve-3d;
     display: flex;
@@ -24,10 +7,29 @@
     align-items: center;
 }
 
-
-.black-placeholder {
-    position: relative;
-    width: 0;
+.piano .wrapper {
     transform-style: preserve-3d;
-    transform: scaleX(50%) scaleZ(60%) translateY(-25px);
+    position: relative;
+    height: 0;
+}
+
+.key.white {
+    background: #f9f9f9;
+}
+
+.black-wrapper {
+    transform-style: preserve-3d;
+    position: absolute;
+    transform: translateZ(-50px);
+
+    top: -12px;
+    right: -9px;
+}
+
+.key.black {
+    background-color: #242424;
+}
+
+.key:hover {
+    transform: rotateX(-5deg); /* Simulate pressing down */
 }

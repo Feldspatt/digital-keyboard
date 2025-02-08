@@ -1,4 +1,10 @@
-const pianoNotes = [
+export type PianoNote = {
+    name: string
+    frequency: number
+    color: string
+}
+
+const pianoNotes: PianoNote[] = [
     { name: 'C2', frequency: 65.41, color: 'white' },
     { name: 'C#2', frequency: 69.3, color: 'black' },
     { name: 'D2', frequency: 73.42, color: 'white' },

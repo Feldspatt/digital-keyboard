@@ -10,10 +10,7 @@
     height: var(--height); /* Height of the piano key */
     transform-style: preserve-3d;
     transition: transform 0.5s;
-}
-
-.solid:hover {
-    transform: rotateX(-25deg) rotateY(25deg); /* Simulate pressing down */
+    transform-origin: 50% 100% calc(var(--depth) / -2);
 }
 
 .face {
@@ -25,7 +22,7 @@
     font-size: 24px;
     font-family: Arial, sans-serif;
     color: #333;
-    background-color: rgba(195, 155, 155, 0.6);
+    background-color: inherit;
     transform-origin: top left;
 }
 

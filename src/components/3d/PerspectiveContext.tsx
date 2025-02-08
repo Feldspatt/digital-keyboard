@@ -1,6 +1,6 @@
-import Cuboid from "./Cuboid/Cuboid.tsx";
+import type {ReactNode} from "react";
 
-export function PerspectiveContext () {
+export function PerspectiveContext ({ children }: { children: ReactNode }) {
     return (
         <div style={{
             width: '100vw',
@@ -8,13 +8,13 @@ export function PerspectiveContext () {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            perspective: '1000px'
+            perspective: '1000px',
         }}>
             <div style={{
-                transform: 'rotateX(-20deg) rotateY(45deg)',
+                transform: 'rotateX(-25deg) rotateY(-45deg)',
                 transformStyle: 'preserve-3d'
             }}>
-                <Cuboid width={60} height={20} depth={200} />
+                {children}
             </div>
         </div>
     );

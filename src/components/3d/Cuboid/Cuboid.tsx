@@ -1,6 +1,14 @@
 import './Cuboid.css'
 
-export const Cuboid = ({ width = 300, height = 50, depth = 500 }) => {
+type CuboidProps = {
+    width: number,
+    height: number,
+    depth: number,
+    className?: string
+    onMouseEnter?: () => void,
+}
+
+export const Cuboid = ({ width = 300, height = 50, depth = 500, className, onMouseEnter }: CuboidProps) => {
     const cubeStyles = {
         '--width': `${width}px`,
         '--height': `${height}px`,
@@ -8,14 +16,14 @@ export const Cuboid = ({ width = 300, height = 50, depth = 500 }) => {
     };
 
     return (
-        <div className="solid"
+        <div onMouseEnter={onMouseEnter} className={`solid ${className ?? ''}`}
              style={cubeStyles}>
-            <div className={'face front'}>front</div>
-            <div className={'face back'}>back</div>
-            <div className={'face left'}>left</div>
-            <div className={'face right'}>right</div>
-            <div className={'face top'}>top</div>
-            <div className={'face bottom'}>bottom</div>
+            <div className={'face front'}/>
+            <div className={'face back'}/>
+            <div className={'face left'}/>
+            <div className={'face right'}/>
+            <div className={'face top'}/>
+            <div className={'face bottom'}/>
         </div>
     );
 };
