@@ -1,6 +1,6 @@
 .piano {
     position: relative;
-    gap: 0.2em;
+    gap: 3px;
     transform-style: preserve-3d;
     display: flex;
     justify-content: center;
@@ -32,4 +32,8 @@
 
 .key:hover {
     transform: rotateX(-5deg); /* Simulate pressing down */
+}
+
+.bg-wood {
+    background: peru;
 }

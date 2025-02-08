@@ -8,10 +8,10 @@ export function PerspectiveContext ({ children }: { children: ReactNode }) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            perspective: '1000px',
+            perspective: '800px',
         }}>
             <div style={{
-                transform: 'rotateX(-25deg) rotateY(-45deg)',
+                transform: 'rotateX(-25deg) rotateY(-25deg)',
                 transformStyle: 'preserve-3d'
             }}>
                 {children}

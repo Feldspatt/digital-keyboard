@@ -2,7 +2,7 @@ import './piano3d.css'
 import Cuboid from "../3d/Cuboid/Cuboid.tsx";
 import type {PianoNote} from "../../types/PianoNotes.ts";
 import pianoNotes from "../../types/PianoNotes.ts";
-import {getFactory, synth} from "../../synth.ts";
+import {getFactory} from "../../synth.ts";
 import {Instrument} from "../../types/Instruments.enum.ts";
 import {playNote} from "../../types/NotePlayer.ts";
 
