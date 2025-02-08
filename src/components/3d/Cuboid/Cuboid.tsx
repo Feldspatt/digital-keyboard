@@ -1,15 +1,22 @@
 import './Cuboid.css'
 
-type CuboidProps = {
-    width: number,
-    height: number,
-    depth: number,
-    className?: string
-    onMouseEnter?: () => void,
+interface CuboidProps {
+    width?: number;
+    height?: number;
+    depth?: number;
+    className?: string;
+    onMouseEnter?: (event: React.MouseEvent<HTMLDivElement>) => void;
+}
+
+// Define custom CSS properties interface
+interface CuboidCSSProperties extends React.CSSProperties {
+    '--width': string;
+    '--height': string;
+    '--depth': string;
 }
 
 export const Cuboid = ({ width = 300, height = 50, depth = 500, className, onMouseEnter }: CuboidProps) => {
-    const cubeStyles = {
+    const cubeStyles: CuboidCSSProperties = {
         '--width': `${width}px`,
         '--height': `${height}px`,
         '--depth': `${depth}px`,
