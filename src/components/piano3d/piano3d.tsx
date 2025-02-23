@@ -10,7 +10,7 @@ export function Piano3d() {
     const map = getMap(pianoNotes)
 
     return (<>
-        <div className={"piano"}>
+        <div className={"piano-notes"}>
             { Object.entries(pianoNotes).filter(([_,note]) => note.color === "white").map(([key, value]) => {
                 const blackNote = map.get(value)
                 return (<div className={"wrapper"} key={key}>
@@ -20,7 +20,8 @@ export function Piano3d() {
                     </span>}
                 </div>)})}
         </div>
-        </>)
+        <Cuboid width={1230} depth={220} className={"piano-base"}/>
+    </>)
 }
 
 function getMap(notes: PianoNote[]) {
