@@ -11,5 +11,15 @@
 .perspective-camera {
     transform-style: preserve-3d;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: camera-in 1.5s forwards cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes camera-in {
+    0% {
+        transform: translate3d(0, 0, 0) rotateX(100deg);
+    }
+    100% {
+        transform: translate3d(0, 0, 200px) rotateX(-60deg);
+    }
 }
 

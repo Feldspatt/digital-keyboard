@@ -1,0 +1,24 @@
+.soundAllower {
+    font-family: Cooper, sans-serif;
+    color: var(--color-accent);
+    font-size: 2rem;
+    bottom: 1em;
+    padding: 1rem 0.5em;
+    border-radius: 50px;
+    border: 10px solid var(--color-accent);
+    background-color: var(--color-soft);
+    z-index: 1000;
+    position: fixed;
+    left: 50%;
+    transform: translateY(150%) translateX(-50%);
+    animation: jump-in 1s forwards cubic-bezier(.68,-0.55,.27,1.55) 1.75s;
+}
+
+@keyframes jump-in {
+    0%{
+        transform: translateY(150%) translateX(-50%);
+    }
+    100%{
+        transform: translateY(0) translateX(-50%);
+    }
+}

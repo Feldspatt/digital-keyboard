@@ -8,9 +8,17 @@ export const radioStations: RadioStation[] = [
         url: 'https://icecast.walmradio.com:8443/otr'
     },
     {
+        name: 'Synthetic FM - Italo Disco New Generation',
+        url: 'http://stream.syntheticfm.com:8030/stream'
+    },
+    {
         name: 'Classic Vinyl',
         url: 'https://icecast.walmradio.com:8443/classic_opus'
     },
+    {
+        name: 'WALM 2 HD Opus',
+        url: 'https://icecast.walmradio.com:8443/walm2_opus',
+    }
 ]
 
 export type RadioStation = {
