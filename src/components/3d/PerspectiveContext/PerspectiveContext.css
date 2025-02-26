@@ -15,10 +15,10 @@
 
 @keyframes camera-in {
     0% {
-        transform: translateZ(0) rotateX(100deg);
+        transform: translate3d(0,200px,0) rotateX(120deg);
     }
     100% {
-        transform: translateZ(50px) rotateX(-60deg);
+        transform: translate3d(0,0,100px) rotateX(-40deg);
     }
 }
 
