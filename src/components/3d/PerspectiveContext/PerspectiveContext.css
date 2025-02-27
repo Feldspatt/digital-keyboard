@@ -18,7 +18,7 @@
         transform: translate3d(0,300px,0) rotateX(120deg);
     }
     100% {
-        transform: translate3d(0,0,50px) rotateX(-40deg);
+        transform: translate3d(0,0,75px) rotateX(-40deg);
     }
 }
 
